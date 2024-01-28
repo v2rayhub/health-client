@@ -18,3 +18,9 @@ Sample
 ```
 python get_system_stats.py
 ```
+
+
+## TODO:
+
+- Add graph viz
+- Add monitoring per node
