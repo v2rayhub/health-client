@@ -18,5 +18,6 @@ class MonitoringClient:
         point.field("response_time", response_time)
         await self._write_api.write(bucket=self._bucket, org=self._org, record=point)
 
-    async def __aexit__(*args):
+    async def __aexit__(self, *args):
         self._write_api.close()
+        self._influxdb_client.close()

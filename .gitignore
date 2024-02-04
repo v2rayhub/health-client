@@ -3,3 +3,4 @@ venv
 *.pyc
 config.toml.local
 *.local
+config/test*
