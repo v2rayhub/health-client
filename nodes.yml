@@ -1,0 +1,26 @@
+node1:
+  name: "UK"
+  ip: "178.79.137.60"
+  domain: ""
+  v2ray-full-config: ''
+  health:
+    vmess:
+      path: "./config/uk-vmess.json"
+
+node2:
+  name: "Italy"
+  ip: "172.232.220.220"
+  domain: ""
+  v2ray-full-config: ''
+  health:
+    vmess:
+      path: "./config/italy-vmess.json"
+
+node3:
+  name: "Iran-Amir-Sindad"
+  ip: ""
+  domain: "http://205fbc64-bc31-4734-9b60-60d63f48e456.hsvc.ir"
+  v2ray-full-config: ''
+  health:
+    vmess:
+      path: "./config/iran-sindad-vmess.json"

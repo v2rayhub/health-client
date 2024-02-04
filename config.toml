@@ -1,0 +1,9 @@
+[app]
+# It should be unique.
+prob_name =
+
+[influxdb]
+url =
+token =
+org =
+bucket =
