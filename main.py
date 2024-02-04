@@ -28,7 +28,7 @@ async def main():
             for url in HOSTS:
                 response_time = await client.get(url)
                 await monitoring_client.send_point(client.tag, url, client.protocol, response_time)
-        await asyncio.sleep(5)
+        await asyncio.sleep(int(config['app'].get('sampling_time', '10')))
 
 
 

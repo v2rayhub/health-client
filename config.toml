@@ -1,1 +1,10 @@
-config.toml.local
+[app]
+# It should be unique.
+prob_name =
+sampling_time =
+
+[influxdb]
+url =
+token =
+org =
+bucket =
