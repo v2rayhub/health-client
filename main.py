@@ -4,6 +4,8 @@ from src.influx_client import MonitoringClient
 from src.v2ray_health import generate_config_create_clients
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 LOGGER = logging.getLogger(__name__)
 
 HOSTS = [
