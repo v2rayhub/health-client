@@ -1,51 +1,50 @@
 {
-  "api": {
-    "services": [
-      "HandlerService",
-      "LoggerService",
-      "StatsService"
-    ],
-    "tag": "api"
-  },
-  "inbounds": [
-    {
-      "listen": "0.0.0.0",
-      "port": 5000,
-      "protocol": "dokodemo-door",
-      "settings": {
-        "address": "0.0.0.0"
-      },
-      "tag": "api"
-    }
-  ],
-  "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {}
-    },
-    {
-      "protocol": "blackhole",
-      "settings": {},
-      "tag": "blocked"
-    }
-  ],
-  "policy": {
-    "system": {
-      "statsInboundDownlink": true,
-      "statsInboundUplink": true
-    }
-  },
-  "routing": {
-    "rules": [
-      {
-        "inboundTag": [
-          "api"
-        ],
-        "outboundTag": "api",
-        "type": "field"
-      }
-    ]
-  },
-  "stats": {}
+	"api": {
+		"services": [
+			"HandlerService",
+			"LoggerService",
+			"StatsService"
+		],
+		"tag": "api"
+	},
+	"inbounds": [
+		{
+			"listen": "0.0.0.0",
+			"port": 5000,
+			"protocol": "dokodemo-door",
+			"settings": {
+				"address": "0.0.0.0"
+			},
+			"tag": "api"
+		}
+	],
+	"outbounds": [
+		{
+			"protocol": "freedom",
+			"settings": {}
+		},
+		{
+			"protocol": "blackhole",
+			"settings": {},
+			"tag": "blocked"
+		}
+	],
+	"policy": {
+		"system": {
+			"statsInboundDownlink": true,
+			"statsInboundUplink": true
+		}
+	},
+	"routing": {
+		"rules": [
+			{
+				"inboundTag": [
+					"api"
+				],
+				"outboundTag": "api",
+				"type": "field"
+			}
+		]
+	},
+	"stats": {}
 }
-

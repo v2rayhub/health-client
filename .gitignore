@@ -4,3 +4,4 @@ venv
 config.toml.local
 *.local
 config/test*
+config/config.json

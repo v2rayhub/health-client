@@ -1,6 +1,6 @@
 from influxdb_client import Point
 from influxdb_client.client.influxdb_client_async import InfluxDBClientAsync
-from datetime import datetime
+
 
 class MonitoringClient:
     def __init__(self, url, token, bucket, org, prob_name):
@@ -19,5 +19,4 @@ class MonitoringClient:
         await self._write_api.write(bucket=self._bucket, org=self._org, record=point)
 
     async def __aexit__(self, *args):
-        self._write_api.close()
-        self._influxdb_client.close()
+        await self._influxdb_client.close()
