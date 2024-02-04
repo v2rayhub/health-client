@@ -10,10 +10,11 @@ class MonitoringClient:
         self._prob_name = prob_name
         self._org = org
 
-    async def send_point(self, destination: str, protocol: str, response_time: float):
+    async def send_point(self, node_tag: str, destination: str, protocol: str, response_time: float):
         point = Point("latency")
         point.tag('prob_name', self._prob_name)
-        point.tag('node', destination)
+        point.tag('node', node_tag)
+        point.tag('destination', destination)
         point.tag('protcol', protocol)
         point.field("response_time", response_time)
         await self._write_api.write(bucket=self._bucket, org=self._org, record=point)

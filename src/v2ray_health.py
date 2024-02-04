@@ -10,8 +10,6 @@ _FINAL_CONFIG = 'config.json'
 _IGNORE_LIST = [_FINAL_CONFIG, 'sample_config.json']
 _BEGIN_PORT = 5001
 
-AIOHTTP_SESSION = aiohttp.ClientSession()
-
 
 class Config:
 
@@ -34,11 +32,11 @@ _PROTOCOL_MAPPING = {
 
 
 class TestClient:
-    def __init__(self, outbound, session, tag=None, port=None):
+    def __init__(self, outbound, tag=None, port=None):
         self.tag = tag if tag else outbound['tag']
         self.port = port if port else _PROTOCOL_MAPPING[outbound['protocol']](outbound).get_port()
         self.outbounds = outbound
-        self.session = session
+        self.session = aiohttp.ClientSession()
         self.protocol = outbound['protocol']
 
     def outbound_json_config(self) -> Dict:
@@ -60,12 +58,11 @@ class TestClient:
                 "outboundTag": self.tag
                 }
 
-    async def get(self, url='google.com', **kwargs) -> float:
+    # Time is in miliseconds
+    async def get(self, url='google.com') -> float:
         start = time.time()
-        try:
-            await self.session.get(url, kwargs)
-        finally:
-            return time.time() - start
+        a = await self.session.get(url, proxy="http://localhost:{}".format(self.port))
+        return (time.time() - start)  * 1000
 
 def generate_config_create_clients() -> List[TestClient]:
     configs = {}
@@ -82,7 +79,7 @@ def generate_config_create_clients() -> List[TestClient]:
     proxy_list = []
     i = _BEGIN_PORT
     for _ , config in configs.items():
-        proxy_list.append(TestClient(config, AIOHTTP_SESSION, port=i))
+        proxy_list.append(TestClient(config, port=i))
         i += 1
 
     v2ray_config['outbounds'].extend([config.outbound_json_config() for config in proxy_list])
