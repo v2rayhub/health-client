@@ -1,0 +1,11 @@
+# nodes.yml should be create with this template
+node1:
+  name:
+  ip:
+  domain:
+  v2ray-full-config:
+  health:
+    vmess:
+      path:
+
+
