@@ -61,8 +61,11 @@ class TestClient:
     # Time is in miliseconds
     async def get(self, url='google.com') -> float:
         start = time.time()
-        a = await self.session.get(url, proxy="http://localhost:{}".format(self.port))
+        await self.session.get(url, proxy="http://localhost:{}".format(self.port))
         return (time.time() - start)  * 1000
+
+    def __repr__(self) -> str:
+        return f"Client tag: {self.tag}"
 
 def generate_config_create_clients() -> List[TestClient]:
     configs = {}

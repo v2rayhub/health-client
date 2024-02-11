@@ -18,7 +18,6 @@ config = ConfigParser()
 config.read('./config.toml')
 influx_config = config["influxdb"]
 
-
 async def main():
     clients = generate_config_create_clients()
     LOGGER.info('Start with {} nodes'.format(len(clients)))
@@ -34,6 +33,7 @@ async def main():
             for client in clients:
                 for url in HOSTS:
                     response_time = await client.get(url)
+                    LOGGER.info("Going to check %s through node %s, response_time %s", url, client, response_time)
                     await monitoring_client.send_point(client.tag, url, client.protocol, response_time)
             await asyncio.sleep(int(config['app'].get('sampling_time', '10')))
         except Exception as e:
