@@ -1,6 +1,7 @@
 ## V2ray Health Probe
 
-Probe -> [REQ] -> [PROXY] -> [Instagram, Whatsapp, Google] -> [RESPONSE] -> Probe -> (InfluxDB)
+$${\color{red}PROBE \color{blue}-> [REQ] -> [PROXY] -> \color{green}[Instagram, Whatsapp, Google] \color{blue}-> [RESPONSE] -> \color{red}PROBE -> (InfluxDB)}$$ 
+
 
 ### Step To Setup
 
