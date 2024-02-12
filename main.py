@@ -38,12 +38,12 @@ async def main():
                 for url in HOSTS:
                     async def fetch(client, url, monitoring_client):
                         try:
-                            response_time = await client.get(url, 1)
+                            response_time = await client.get(url, 5)
                         except Exception as e:
                             LOGGER.error("Error in checking url %s with node %s", url, client)
                             LOGGER.exception(e)
                             return
-                        LOGGER.info("Going to check %s through node %s, response_time %s", url, client, response_time)
+                        LOGGER.info("Dest: %s | Node: %s | response_time %s", url, client, response_time)
                         if response_time is None:
                             return
                         await monitoring_client.send_point(client.tag, url, client.protocol, response_time)

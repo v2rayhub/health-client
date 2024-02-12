@@ -66,10 +66,12 @@ class TestClient:
             await self.session.get(url, proxy="http://localhost:{}".format(self.port), timeout=timeout)
         except asyncio.exceptions.TimeoutError:
             return None
-        return (time.time() - start)  * 1000
+        except aiohttp.client_exceptions.ClientConnectorError:
+            return None
+        return time.time() - start
 
     def __repr__(self) -> str:
-        return f"Client tag: {self.tag}"
+        return f"{self.tag}"
 
 def generate_config_create_clients() -> List[TestClient]:
     configs = {}
