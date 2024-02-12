@@ -1,8 +1,9 @@
+import asyncio
 import os
 import json
 import aiohttp
 import time
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
 _DEFAULT_CONFIG = 'default_config.json'
@@ -59,9 +60,12 @@ class TestClient:
                 }
 
     # Time is in miliseconds
-    async def get(self, url='google.com') -> float:
+    async def get(self, url='google.com', timeout=2) -> Optional[float]:
         start = time.time()
-        await self.session.get(url, proxy="http://localhost:{}".format(self.port))
+        try:
+            await self.session.get(url, proxy="http://localhost:{}".format(self.port), timeout=timeout)
+        except asyncio.exceptions.TimeoutError:
+            return None
         return (time.time() - start)  * 1000
 
     def __repr__(self) -> str:
