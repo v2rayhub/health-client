@@ -1,0 +1,10 @@
+[Unit]
+Description=V2ray Probe
+
+[Service]
+ExecStart=/usr/local/bin/python /app/main.py
+Restart=always
+
+[Install]
+WantedBy=default.target
+
