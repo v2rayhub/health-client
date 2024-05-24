@@ -31,6 +31,7 @@ async def main():
             org=influx_config['org'],
             prob_name=config['app']['prob_name']
             )
+
     while True:
         try:
             tasks = []
@@ -46,7 +47,10 @@ async def main():
                         LOGGER.info("Dest: %s | Node: %s | response_time %s", url, client, response_time)
                         if response_time is None:
                             return
-                        await monitoring_client.send_point(client.tag, url, client.protocol, response_time)
+                        try:
+                            await monitoring_client.send_point(client.tag, url, client.protocol, response_time)
+                        except Exception:
+                            LOGGER.error("Can not send metric to monitoring server")
                     tasks.append(asyncio.create_task(fetch(client, url , monitoring_client)))
             asyncio.gather(*tasks)
             await asyncio.sleep(int(config['app'].get('sampling_time', '10')))
